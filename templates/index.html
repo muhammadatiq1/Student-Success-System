@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success AI | Early Warning System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-blob"></div>
+
+    <div id="loader-overlay" class="loader-overlay">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; font-weight: 600;">Analyzing Student Data...</p>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Student Success System</h1>
+            <p>AI-Powered Early Warning & Performance Analytics</p>
+        </header>
+
+        <div class="upload-container fade-in-up">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="drop-zone" id="drop-zone">
+                    <span class="icon">📂</span>
+                    <h3>Drag & Drop your dataset here</h3>
+                    <p class="small-text">or click to browse files</p>
+                    <label for="file-upload" class="btn-select">Select File</label>
+                    <input id="file-upload" type="file" name="file" accept=".csv, .xlsx">
+                </div>
+            </form>
+        </div>
+
+        {% if processed %}
+        <div class="dashboard">
+            
+            <div class="card metric-card fade-in-up">
+                <h3>Prediction Accuracy</h3>
+                <div class="number">{{ accuracy }}%</div>
+                <p>Confidence Level (Random Forest)</p>
+            </div>
+
+            <div class="card fade-in-up">
+                <h3>🏆 Key Success Factors</h3>
+                <ul class="factor-list">
+                    {% for feature, score in importance.items() %}
+                    <li>
+                        <span>{{ feature }}</span>
+                        <span class="score-badge">{{ (score*100)|round(1) }}% Impact</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="card viz-card fade-in-up">
+                <h3>📊 Feature Correlations</h3>
+                <img src="{{ url_for('static', filename=heatmap) }}" alt="Correlation Matrix">
+            </div>
+
+            {% if boxplot %}
+            <div class="card viz-card fade-in-up">
+                <h3>📉 Study Habits vs. Performance</h3>
+                <img src="{{ url_for('static', filename=boxplot) }}" alt="Study Habits Boxplot">
+            </div>
+            {% endif %}
+            
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

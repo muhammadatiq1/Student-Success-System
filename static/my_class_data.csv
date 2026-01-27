@@ -1,0 +1,11 @@
+Student_ID,Attendance_Rate,Study_Hours,Previous_Scores,Internet_Access,Result
+1,90,10,85,Yes,Pass
+2,45,2,40,No,Fail
+3,88,8,82,Yes,Pass
+4,70,5,60,No,Pass
+5,20,1,30,No,Fail
+6,95,12,90,Yes,Pass
+7,50,3,55,No,Fail
+8,80,9,78,Yes,Pass
+9,30,2,35,No,Fail
+10,65,4,58,Yes,Pass
